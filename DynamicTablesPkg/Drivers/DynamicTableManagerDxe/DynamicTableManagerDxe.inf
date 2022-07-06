@@ -22,6 +22,8 @@
 
 [Sources]
   DynamicTableManagerDxe.c
+  SmbiosTableBuilder.c
+  AcpiTableBuilder.c
   SmbiosTableDispatcher.c
   SmbiosTableDispatcher.h
 
@@ -33,6 +35,7 @@
 [LibraryClasses]
   PrintLib
   TableHelperLib
+  UefiLib
   UefiBootServicesTableLib
   UefiDriverEntryPoint
 
@@ -42,12 +45,12 @@
 [Protocols]
   gEfiAcpiTableProtocolGuid                     # PROTOCOL ALWAYS_CONSUMED
   gEfiAcpiSdtProtocolGuid                       # PROTOCOL ALWAYS_CONSUMED
+  gEfiSmbiosProtocolGuid                        # PROTOCOL ALWAYS_CONSUMED
 
   gEdkiiConfigurationManagerProtocolGuid        # PROTOCOL ALWAYS_CONSUMED
   gEdkiiDynamicTableFactoryProtocolGuid         # PROTOCOL ALWAYS_CONSUMED
 
 [Depex]
-  gEfiAcpiTableProtocolGuid AND
   gEdkiiConfigurationManagerProtocolGuid AND
   gEdkiiDynamicTableFactoryProtocolGuid
 

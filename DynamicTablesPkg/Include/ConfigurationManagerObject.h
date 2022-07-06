@@ -31,6 +31,7 @@ Bits: [31:28] - Name Space ID
                 0000 - Standard
                 0001 - ARM
                 1000 - Custom/OEM
+                1010 - SMBIOS
                 All other values are reserved.
 
 Bits: [27:16] - Reserved.
@@ -105,9 +106,10 @@ typedef UINT32 CM_OBJECT_ID;
     for the Configuration Manager Objects.
 */
 typedef enum ObjectNameSpaceID {
-  EObjNameSpaceStandard,      ///< Standard Objects Namespace
-  EObjNameSpaceArm,           ///< ARM Objects Namespace
-  EObjNameSpaceOem = 0x8,     ///< OEM Objects Namespace
+  EObjNameSpaceStandard,         ///< Standard Objects Namespace
+  EObjNameSpaceArm,              ///< ARM Objects Namespace
+  EObjNameSpaceOem    = 0x8,     ///< OEM Objects Namespace
+  EObjNameSpaceSmbios = 0xA,     ///< SMBIOS Objects Namespace
   EObjNameSpaceMax
 } EOBJECT_NAMESPACE_ID;
 
@@ -191,5 +193,15 @@ typedef struct CmObjDescriptor {
 **/
 #define CREATE_CM_OEM_OBJECT_ID(ObjectId) \
           (CREATE_CM_OBJECT_ID (EObjNameSpaceOem, ObjectId))
+
+/** This macro returns a Configuration Manager Object ID
+    in the SMBIOS Object Namespace.
+
+  @param [in] ObjectId    The Object ID.
+
+  @retval Returns an SMBIOS Configuration Manager Object ID.
+**/
+#define CREATE_CM_SMBIOS_OBJECT_ID(ObjectId) \
+          (CREATE_CM_OBJECT_ID (EObjNameSpaceSmbios, ObjectId))
 
 #endif // CONFIGURATION_MANAGER_OBJECT_H_
