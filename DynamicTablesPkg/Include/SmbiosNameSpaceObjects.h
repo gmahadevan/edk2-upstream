@@ -13,6 +13,8 @@
 #ifndef SMBIOS_NAMESPACE_OBJECTS_H_
 #define SMBIOS_NAMESPACE_OBJECTS_H_
 
+#include <IndustryStandard/SmBios.h>
+
 #pragma pack(1)
 
 typedef enum SmbiosObjectID {
@@ -36,6 +38,74 @@ typedef enum SmbiosObjectID {
   ESmbiosObjFirmwareInventoryInfo,     ///< 17 - Firmware Inventory Info
   ESmbiosObjMax
 } ESMBIOS_OBJECT_ID;
+
+/** A structure that describes the physical memory device.
+
+  The physical memory devices on the system are described by this object.
+
+  SMBIOS Specification v3.5.0 Type17
+
+  ID: ESmbiosObjMemoryDeviceInfo,
+*/
+typedef struct CmSmbiosMemoryDeviceInfo {
+  /** Size of the device.
+    Size of the device in bytes.
+  */
+  UINT64                       Size;
+
+  /** Device Set */
+  UINT8                        DeviceSet;
+
+  /** Speed of the device
+    Speed of the device in MegaTransfers/second.
+  */
+  UINT32                       Speed;
+
+  /** Serial Number of device  */
+  CHAR8                        *SerialNum;
+
+  /** AssetTag identifying the device */
+  CHAR8                        *AssetTag;
+
+  /** Device Locator String for the device.
+   String that describes the slot or position of the device on the board.
+   */
+  CHAR8                        *DeviceLocator;
+
+  /** Bank locator string for the device.
+   String that describes the bank where the device is located.
+   */
+  CHAR8                        *BankLocator;
+
+  /** Firmware version of the memory device */
+  CHAR8                        *FirmwareVersion;
+
+  /** Manufacturer Id.
+   2 byte Manufacturer Id as per JEDEC Standard JEP106AV
+  */
+  UINT16                       ModuleManufacturerId;
+
+  /** Manufacturer Product Id
+   2 byte Manufacturer Id as designated by Manufacturer.
+  */
+  UINT16                       ModuleProductId;
+
+  CM_OBJECT_TOKEN              MemoryDeviceInfoToken;
+  CM_OBJECT_TOKEN              PhysicalArrayToken;
+  UINT16                       DataWidth;
+  UINT16                       TotalWidth;
+  UINT8                        Rank;
+
+  MEMORY_DEVICE_TYPE           DeviceType;
+  MEMORY_DEVICE_TYPE_DETAIL    TypeDetail;
+  MEMORY_DEVICE_TECHNOLOGY     DeviceTechnology;
+  MEMORY_FORM_FACTOR           FormFactor;
+} CM_SMBIOS_MEMORY_DEVICE_INFO;
+
+typedef struct {
+  CM_OBJECT_TOKEN              CmObjToken;
+  SMBIOS_TABLE_GENERATOR_ID    GeneratorId;
+} CONTAINED_CM_OBJECTS;
 
 #pragma pack()
 
